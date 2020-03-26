@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
 module ItemContainer
-  module Manager
-    def add_item(item)
-      @items.push item
+  module ClassMethods
+    def min_price
+      100
+    end
+  end
+
+  module InstanceMethods
+    def  add_item(item)
+      @items.push item unless item.price < self.class.min_price
     end
 
     def remove_item
@@ -17,11 +23,16 @@ module ItemContainer
     def delete_invalid_items
       @items.delete_if { |i| i.price.nil? }
     end
-  end
 
-  module Info
     def count_valid_items
       @items.count(&:price)
+    end
+  end
+
+  def self.included(base)
+    base.extend ClassMethods
+    base.class_eval do
+      include InstanceMethods
     end
   end
 end
