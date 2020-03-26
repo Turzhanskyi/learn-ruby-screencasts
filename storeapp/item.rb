@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
 class Item
-  @@discount = 0.1
+  @@discount = 0.05
 
   def self.discount
     if Time.now.month == 4
-      @@discount + 0.2
+      @@discount + 0.1
     else
       @@discount
     end
   end
 
   def initialize(options = {})
-    @price = options[:price]
+    @real_price = options[:price]
     @name = options[:name]
   end
 
-  attr_reader :name
+  attr_reader :name, :real_price
   attr_writer :price
 
   def info
@@ -25,6 +25,22 @@ class Item
   end
 
   def price
-    @price - @price * self.class.discount
+    (@real_price - @real_price * self.class.discount) + tax
+  end
+
+  private
+
+  def tax
+    type_tax = if self.class == VirtualItem
+                 1
+               else
+                 2
+               end
+    const_tax = if @real_price > 5
+                  @real_price * 0.2
+                else
+                  @real_price * 0.1
+                end
+    const_tax + type_tax
   end
 end

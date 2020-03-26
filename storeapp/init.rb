@@ -13,3 +13,4 @@ cart.add_item item1
 cart.add_item item2
 
 puts item1.price
+puts item1.real_price
