@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Cart
-
   attr_reader :items
 
   def initialize
@@ -16,4 +15,7 @@ class Cart
     @items.pop
   end
 
+  def validate
+    @items.each { |i| puts 'Item has no price' if i.price.nil? }
+  end
 end

@@ -1,12 +1,11 @@
-class Item
+# frozen_string_literal: true
 
-  def initialize(options={})
+class Item
+  def initialize(options = {})
     @price = options[:price]
     @weight = options[:weight]
   end
 
   attr_reader :price, :weight
   attr_writer :price
-
 end
-
