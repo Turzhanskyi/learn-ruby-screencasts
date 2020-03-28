@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'string'
 require_relative 'item_container'
 require_relative 'cart'
 require_relative 'order'
