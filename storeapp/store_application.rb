@@ -2,9 +2,10 @@
 
 class StoreApplication
   class << self
-    def new
+    def config
       unless @instance
-        puts 'loading files...'
+        yield(self)
+        puts 'loading files....'
         require_relative 'string'
         require_relative 'item_container'
         require_relative 'item'
@@ -15,6 +16,27 @@ class StoreApplication
         require_relative 'order'
       end
       @instance ||= self
+    end
+
+    attr_accessor :name, :environment
+
+    def admin(&block)
+      @admin ||= Admin.new(&block)
+    end
+  end
+
+  class Admin
+    class << self
+      def new
+        yield(self) unless @instance
+        @instance ||= self
+      end
+
+      attr_accessor :email, :login
+
+      def send_info_email_on(day)
+        @send_info_email_on = day
+      end
     end
   end
 end
