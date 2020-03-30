@@ -17,7 +17,10 @@ class Item
   end
 
   attr_reader :name, :real_price
-  attr_writer :price
+
+  def price=(value)
+    @real_price = value
+  end
 
   def info
     yield(name)
@@ -29,7 +32,7 @@ class Item
   end
 
   def to_s
-    "#{name}:#{price}:#{weight}"
+    "#{name}:#{price}"
   end
 
   private
