@@ -26,3 +26,5 @@ cart.add_item RealItem.new(price: 120, weight: 100, name: 'kettle')
 order = Order.new
 @items.each { |i| order.add_item(i) }
 order.place
+puts order.placed_at.strftime('%b %-d, %Y %H:%M:%S')
+puts order.time_spent_on_sending_email
